@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace GineSys.Models
 {
-    public class Ocupacion
+    public class Usuarios 
     {
-        public int OcupacionId { get; set; }
-        public string Descripcion { get; set; }
+        public int UsuarioId { get; set; }
+        public string Usuario { get; set; }
+        public string Nombre { get; set; }
+        public string Contrasena { get; set; }
+        public bool IsAdmin { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
+
     }
 }

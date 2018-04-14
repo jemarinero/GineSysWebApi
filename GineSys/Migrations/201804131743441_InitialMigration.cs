@@ -20,10 +20,27 @@ namespace GineSys.Migrations
                     })
                 .PrimaryKey(t => t.OcupacionId);
             
+            CreateTable(
+                "dbo.Usuarios",
+                c => new
+                    {
+                        UsuarioId = c.Int(nullable: false, identity: true),
+                        Usuario = c.String(nullable: false, maxLength: 50),
+                        Nombre = c.String(nullable: false, maxLength: 500),
+                        Contrasena = c.String(nullable: false, maxLength: 100),
+                        IsAdmin = c.Boolean(nullable: false),
+                        FechaCreacion = c.DateTime(nullable: false),
+                        FechaModificacion = c.DateTime(),
+                        UsuarioCreacion = c.String(nullable: false, maxLength: 50),
+                        UsuarioModificacion = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.UsuarioId);
+            
         }
         
         public override void Down()
         {
+            DropTable("dbo.Usuarios");
             DropTable("dbo.Ocupaciones");
         }
     }
