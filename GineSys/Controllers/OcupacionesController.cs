@@ -49,6 +49,7 @@ namespace GineSys.Controllers
                 return BadRequest();
             }
 
+            ocupacion.FechaModificacion = DateTime.Now;
             db.Entry(ocupacion).State = EntityState.Modified;
 
             try
@@ -63,26 +64,35 @@ namespace GineSys.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest("Se produjo un error al actualizar la ocupación");
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(ocupacion);
         }
 
         // POST: api/Ocupaciones
         [ResponseType(typeof(Ocupacion))]
         public IHttpActionResult PostOcupacion(Ocupacion ocupacion)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            try
+            {
+                ocupacion.FechaCreacion = DateTime.Now;
+                db.Ocupaciones.Add(ocupacion);
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Se produjo un error al crear la ocupación\n"+ex.Message);
+            }
+            
 
-            db.Ocupaciones.Add(ocupacion);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = ocupacion.OcupacionId }, ocupacion);
+            return Ok(ocupacion);
         }
 
         // DELETE: api/Ocupaciones/5
